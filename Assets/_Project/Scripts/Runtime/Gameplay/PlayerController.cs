@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
+
 public class PlayerController : MonoBehaviour
 {
     public float speed = 10f;
@@ -14,6 +15,10 @@ public class PlayerController : MonoBehaviour
     
     public TextMeshProUGUI winText;
     public int targetScore = 4;
+
+    public AudioClip 收集音效;
+    public AudioClip win音效收集;
+    public AudioSource audioSource;
     
     void Awake()
     {
@@ -56,6 +61,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("PickUp"))
         {
             score++;
+            audioSource.PlayOneShot(收集音效);
 
             UpdateScoreUI();
             CheckWinCondition();
@@ -74,6 +80,7 @@ public class PlayerController : MonoBehaviour
     {
         if (score >= targetScore)
         {
+            audioSource.PlayOneShot(win音效收集);
             winText.gameObject.SetActive(true);
         }
     }
